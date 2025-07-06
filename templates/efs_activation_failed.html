@@ -1,0 +1,37 @@
+{% extends 'users/auth_base.html' %}
+
+{% block title %} Activation failed {% endblock %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-6 col-lg-5">
+      <div class="ep-card text-center">
+        <div class="brand-logo mb-3">EFS Portal</div>
+        
+        <!-- Using the new error styles and a different icon -->
+        <div class="icon-circle-error">
+          <i class="bi bi-x-circle-fill"></i>
+        </div>
+
+        <!-- Updated text for the error message -->
+        <h4 class="mb-3">Link Invalid or Expired</h4>
+        <p class="text-muted">
+            Sorry, this account activation link is no longer valid. This can happen if it has already been used or if it has expired.
+        </p>
+
+        {% if user %}
+            <p class="mt-4">
+                Would you like us to resend the activation email to <strong>{{ user.email }}</strong>?
+            </p>
+            <div class="d-grid mt-3">
+                <!-- This link will point to a new "resend" view we will create -->
+                <a href="{% url 'efs_resend_activation' user.id %}" class="btn btn-primary">Resend Activation Email</a>
+            </div>
+        {% endif %}
+        <div class="d-grid mt-4">
+          <a href="{% url 'efs_login' %}" class="btn btn-primary">Back to Login</a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

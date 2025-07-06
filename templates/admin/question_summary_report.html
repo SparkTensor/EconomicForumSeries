@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Response Summary</title>
+    <style>
+        body { font-family: sans-serif; }
+        h1, h2 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .footer { margin-top: 30px; font-size: 0.8em; color: #777; }
+    </style>
+</head>
+<body>
+    <h1>Response Summary</h1>
+    <h2>Question: "{{ question.label }}"</h2>
+    <p>For Event: <strong>{{ question.event.name }}</strong></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Answer Choice</th>
+                <th>Number of Responses</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in summary_data %}
+            <tr>
+                <td>{{ item.answer }}</td>
+                <td>{{ item.count }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">No responses yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total Responses</th>
+                <th>{{ total_responses }}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="footer">
+        Report generated on {% now "Y-m-d H:i" %}.
+    </div>
+</body>
+</html>

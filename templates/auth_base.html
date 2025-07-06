@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %} {% endblock %} | Event Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="{% static 'users_style.css' %}" rel="stylesheet">
+</head>
+<body>
+  {% block main %}
+  {% endblock %}
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+    </script>
+
+    <script>
+    const password = document.getElementById('pwd');
+    const confirmPassword = document.getElementById('cpwd');
+    const message = document.getElementById('match_message');
+
+    confirmPassword.addEventListener('input', function () {
+        if (confirmPassword.value === password.value) {
+        message.textContent = "✅ Passwords match";
+        message.style.color = "green";
+        } else {
+        message.textContent = "❌ Passwords do not match";
+        message.style.color = "red";
+        }
+    });
+    </script>
+    <script>
+     /* Minimal styles for strength and match text */
+    .strength-weak { color: #dc3545; /* Bootstrap's danger color */ }
+    .strength-medium { color: #fd7e14; /* Bootstrap's orange color */ }
+    .strength-strong { color: #198754; /* Bootstrap's success color */ }
+    
+    .passwords-match { color: #198754; }
+    .passwords-no-match { color: #dc3545; }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Select all the elements we need
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Select the criteria list items
+    const lengthCheck = document.getElementById('length');
+    const uppercaseCheck = document.getElementById('uppercase');
+    const lowercaseCheck = document.getElementById('lowercase');
+    const numberCheck = document.getElementById('number');
+    const specialCheck = document.getElementById('special');
+    
+    // Select the message area for password matching
+    const matchMessage = document.getElementById('match-message');
+
+    // An object to hold the validation status of each criterion
+    let passwordCriteria = {
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        special: false
+    };
+
+    // This function will be called every time the user types in the password field
+    // NO CHANGES in this function. It still provides feedback on all criteria.
+    const validatePassword = () => {
+        const password = passwordInput.value;
+
+        // 1. Length Check
+        passwordCriteria.length = password.length >= 8;
+        lengthCheck.classList.toggle('valid', passwordCriteria.length);
+
+        // 2. Uppercase Check
+        passwordCriteria.uppercase = /[A-Z]/.test(password);
+        uppercaseCheck.classList.toggle('valid', passwordCriteria.uppercase);
+
+        // 3. Lowercase Check
+        passwordCriteria.lowercase = /[a-z]/.test(password);
+        lowercaseCheck.classList.toggle('valid', passwordCriteria.lowercase);
+
+        // 4. Number Check
+        passwordCriteria.number = /[0-9]/.test(password);
+        numberCheck.classList.toggle('valid', passwordCriteria.number);
+
+        // 5. Special Character Check
+        passwordCriteria.special = /[!@#$%^&*]/.test(password);
+        specialCheck.classList.toggle('valid', passwordCriteria.special);
+        
+        // After checking password, check if confirmation matches
+        validateConfirmPassword();
+    };
+
+    // NO CHANGES in this function either
+    const validateConfirmPassword = () => {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (confirmPassword && password === confirmPassword) {
+            matchMessage.textContent = 'Passwords match!';
+            matchMessage.style.color = '#5cb85c'; // Green
+        } else if (confirmPassword) {
+            matchMessage.textContent = 'Passwords do not match.';
+            matchMessage.style.color = '#d9534f'; // Red
+        } else {
+            matchMessage.textContent = '';
+        }
+        
+        checkFormValidity();
+    };
+    
+    // *** THIS IS THE MODIFIED FUNCTION ***
+    // It now checks for moderate strength instead of strong.
+    const checkFormValidity = () => {
+        // --- Start of changes ---
+
+        // 1. Count how many of the character-type criteria are met.
+        const characterCriteria = [
+            passwordCriteria.uppercase,
+            passwordCriteria.lowercase,
+            passwordCriteria.number,
+            passwordCriteria.special
+        ];
+        
+        // Use filter to count how many are 'true'
+        const criteriaMetCount = characterCriteria.filter(criterion => criterion).length;
+
+        // 2. Check for overall validity:
+        //    - Length must be valid.
+        //    - At least 3 character types must be used.
+        const isPasswordModerate = passwordCriteria.length && criteriaMetCount >= 3;
+        
+        // --- End of changes ---
+        
+        const passwordsMatch = passwordInput.value === confirmPasswordInput.value && passwordInput.value !== '';
+        
+        if (isPasswordModerate && passwordsMatch) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    };
+
+    // Add event listeners for real-time validation
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+    
+    // The final submission check also needs the updated logic
+    document.getElementById('signup-form').addEventListener('submit', (event) => {
+        const characterCriteria = [passwordCriteria.uppercase, passwordCriteria.lowercase, passwordCriteria.number, passwordCriteria.special];
+        const criteriaMetCount = characterCriteria.filter(criterion => criterion).length;
+        const isPasswordModerate = passwordCriteria.length && criteriaMetCount >= 3;
+        const passwordsMatch = passwordInput.value === confirmPasswordInput.value;
+
+        if (!isPasswordModerate || !passwordsMatch) {
+            event.preventDefault(); 
+            alert('Please ensure your password meets the length requirement and uses at least 3 of the 4 character types.');
+        } else {
+            event.preventDefault();
+            alert('Form submitted successfully!');
+        }
+    });
+});
+    </script>
+</body>
+</html>

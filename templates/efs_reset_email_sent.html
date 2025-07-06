@@ -1,0 +1,27 @@
+{% extends 'auth_base.html' %}
+
+{% block title %} Reset email sent {% endblock %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-6 col-lg-5">
+        <div class="ep-card text-center">
+        <div class="brand-logo mb-3">EFS Portal</div>
+        <div class="icon-circle">
+            <!-- This icon is still perfect for indicating an email has been sent -->
+            <i class="bi bi-envelope-check"></i>
+        </div>
+        <h4 class="mb-3">Check Your Email</h4>
+        <p class="text-muted">
+            If an account with your email address exists, we have sent instructions on how to reset your password.
+        </p>
+        <div class="d-grid gap-2 mt-4">
+            <a href="{% url 'efs_login' %}" class="btn btn-primary">Back to Login</a>
+        </div>
+        <div class="footer-text mt-4">
+            Didn't receive the email? Check your spam folder or <a href="{% url 'efs_request_reset_email' %}">try again</a>.
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

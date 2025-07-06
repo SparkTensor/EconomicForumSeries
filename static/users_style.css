@@ -1,0 +1,107 @@
+
+body {
+    background: linear-gradient(to right, rgb(24, 28, 130), #8f94fb);
+}
+
+.ep-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    margin-top:2.5em;
+}
+
+.brand-logo {
+    font-size: 28px;
+    font-weight: 600;
+    color: rgb(24,28,130);
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: rgb(24,28,130);
+}
+
+.btn-primary {
+    background-color:rgb(24,28,130);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: rgb(24,28,130);
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 20px;
+}
+
+/* Email verification styles */
+
+.icon-circle, .icon-circle2, .icon-circle-error {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background: #e0e3ff;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 20px auto;
+}
+
+.icon-circle i {
+font-size: 36px;
+color: #4e54c8;
+}
+
+.icon-circle2 i {
+    font-size: 36px;
+    color: #28a745;
+}
+
+.icon-circle-error i {
+    font-size: 36px;
+    color: #dc3545; /* Bootstrap's standard "danger" red color */
+}
+
+/* For password matching */
+.pwd_match_info {
+    margin-bottom:1em;
+}
+
+.error_alert {
+    background-color:rgba(253, 109, 109, 0.548);
+    color:rgb(197, 8, 8);
+    padding:0.2em 0.3em;
+    border-radius:0.25em;
+    margin-bottom:0.1em;
+}
+
+.warning_alert {
+    background-color:rgba(253, 109, 109, 0.39);
+    color:rgb(231, 6, 6);
+    padding:0.2em 0.3em;
+    border-radius:0.25em;
+    margin-bottom:0.1em;
+}
+
+.success_alert {
+    background-color:rgba(109, 253, 128, 0.308);
+    color:darkgreen;
+    padding:0.2em 0.3em;
+    border-radius:0.25em;
+    margin-bottom:0.1em;
+}
+
+.info_alert {
+    background-color:rgba(139, 203, 247, 0.473);
+    color:rgb(6, 6, 175);
+    padding:0.2em 0.3em;
+    border-radius:0.25em;
+    margin-bottom:0.1em;
+}

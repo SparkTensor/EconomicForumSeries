@@ -1,0 +1,99 @@
+
+/* --- Base Styles --- */
+body {
+    overflow-x: hidden;
+}
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* --- NEW COLOR SCHEME --- */
+
+/* 1. Sidebar with your requested gradient */
+.sidebar-gradient {
+    background: linear-gradient(to right, rgb(10, 11, 110),  rgb(10, 11, 110));
+}
+
+/* 2. Main content area with an "almost white" background */
+.main-content {
+    flex-grow: 1;
+    background-color: #f8f9fa; /* A very light grey */
+}
+
+/* 3. Custom color for the top navbar icons */
+.navbar-custom-text .nav-link {
+    color: rgb(24, 28, 130); /* Dark blue text/icon color */
+}
+.navbar-custom-text .nav-link:hover {
+    color: #8f94fb; /* Lighter blue for hover effect */
+}
+
+/* my adjustments */
+.btn-primary {
+    background-color: rgb(24, 28, 130); 
+    border-color: rgb(24, 28, 130);
+}
+
+.active {
+    background: rgb(24, 28, 130); 
+    border-color: rgb(24, 28, 130);
+}
+
+
+/* Testing */
+.card-hover:hover {
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.image-overlay-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.card-img-container {
+    position: relative;
+}
+
+/* In your styles.css file */
+
+/*
+  This class ensures all card images have the same height
+  and do not get distorted. The image will cover the area,
+  cropping centrally if necessary.
+*/
+.card-img-fixed-height {
+  height: 200px; /* You can adjust this value */
+  object-fit: cover;
+}
+
+/* For the event_detail.html page */
+
+.event-hero-banner {
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+  border-radius: 0.5rem;
+}
+
+
+

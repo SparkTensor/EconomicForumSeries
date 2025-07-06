@@ -1,0 +1,51 @@
+{% extends 'auth_base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center h-100">
+<div class="col-md-5">
+    <div class="ep-card">
+    <div class="text-center mb-4">
+        <div class="brand-logo"> EFS Portal</div>
+        <p class="text-muted">Log in to your account</p>
+    </div>
+    {% if messages %}
+            {% for message in messages %}
+            <div class="{% if message.tags %} {{message.tags}}_alert {% endif %}">{{message}}</div>
+            {% endfor %}
+            {% endif %}
+    <form method="POST" action="{% url 'efs_login' %}">
+        {% csrf_token %}
+        
+        <!-- ADD THIS HIDDEN INPUT -->
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+        <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="email" required placeholder="you@example.com">
+        </div>
+        <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="pwd" name="password" class="form-control" id="password" required placeholder="••••••••">
+        <i class="fa-solid fa-eye position-absolute" id="togglePwd" onclick="togglePassword('pwd', 'togglePwd')" style="top: 72%; right: 15px; transform: translateY(-50%); cursor: pointer;"></i>
+        </div>
+        <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="remember">
+        <label class="form-check-label" for="remember">Remember me</label>
+        </div>
+        <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <div class="mt-3 text-center">
+        <a href="{% url 'efs_request_reset_email' %}" class="text-decoration-none">Forgot password?</a>
+        </div>
+    </form>
+    <div class="footer-text text-center">
+        Don't have an account? <a href="{% url 'efs_signup' 1 %}">Register</a>
+    </div>
+    </div>
+</div>
+</div>
+{% endblock %}

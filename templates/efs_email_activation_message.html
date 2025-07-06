@@ -1,0 +1,12 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }},
+
+Please click on the link below to confirm your registration and activate your account:
+
+http://{{ domain }}{% url 'efs_activate_account' uidb64=user_id token=token %} 
+
+Thank you,
+The EFS Team
+
+{% endautoescape %}

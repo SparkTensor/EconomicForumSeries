@@ -1,0 +1,125 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+
+    <title> {% block title %}{% endblock %}| EFS Portal</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- 
+      SIDEBAR 
+      - UPDATED: Removed `bg-dark` and added the new `sidebar-gradient` class.
+    -->
+    <nav id="sidebar" class="sidebar sidebar-gradient text-white offcanvas-lg offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false">
+      <div class="offcanvas-header py-1 my-0">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column">
+        <!-- CORRECTED INLINE STYLE -->
+        <div style="background-image: url('{% static 'images/default.png' %}');" class="d-flex justify-content-center py-1">
+            <span class="fs-4 fw-bold">EFS Portal</span>
+        </div>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto px-1">
+          <li class="nav-item">
+            <a href="{% url 'efs_dashboard' %}" class="nav-link text-white active" aria-current="page">
+              <i class="bi bi-house-door me-2"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <i class="bi bi-bar-chart-line me-2"></i>
+              Events
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <i class="bi bi-table me-2"></i>
+              Chat room
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <i class="bi bi-grid me-2"></i>
+              Payment
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <i class="bi bi-people me-2"></i>
+              Logout
+            </a>
+          </li>
+        </ul>
+        <hr>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content d-flex flex-column">
+      
+      <!-- 
+        TOP NAVBAR 
+        - UPDATED: Added the `navbar-custom-text` class to apply the new icon colors.
+      -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom navbar-custom-text">
+        <div class="container-fluid">
+
+          <!-- Mobile Sidebar Toggle -->
+          <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="bi bi-list fs-2"></i>  <!-- prettier icon -->
+          </button>
+
+          
+          <!-- Top Nav Icons -->
+          <ul class="navbar-nav ms-auto d-flex flex-row">
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#" title="Notifications">
+                <i class="bi bi-bell fs-5"></i>
+              </a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#" title="Messages">
+                <i class="bi bi-chat-dots fs-5"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" title="Settings">
+                <i class="bi bi-gear fs-5"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- DASHBOARD CARDS -->
+      <main class="container-fluid p-3">
+        
+        <h1 class="h3 mb-4 text-dark">{% block navigation %}{% endblock %}</h1>
+        <span class="fs-6">{% block user %}{% endblock %}</span>
+
+        {% block main %}
+        {% endblock %}
+      </main>
+
+    </div>
+</div>
+
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
